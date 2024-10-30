@@ -1,0 +1,365 @@
+
+ctrl C прекратить выполнение
+ctrl D закончить стандартный ввод
+ctrl Z заморозить процесс
+
+
+karseny99@karseny99:~/Desktop$ cat logs.txt
+Script started on 2022-09-19 21:36:21+03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="101" LINES="355"]
+
+###########################################################################################
+
+
+Первый пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop$ mkdir lab2
+karseny99@karseny99:~/Desktop$ cd lab2/
+
+karseny99@karseny99:~/Desktop/lab2$ mkdir del_test
+karseny99@karseny99:~/Desktop/lab2$ rmdir del_test/
+
+karseny99@karseny99:~/Desktop/lab2$ mkdir diff_test
+karseny99@karseny99:~/Desktop/lab2$ cd diff_test/
+karseny99@karseny99:~/Desktop/lab2/diff_test$ touch file{1..5}
+karseny99@karseny99:~/Desktop/lab2/diff_test$ ls
+file1  file2  file3  file4  file5
+
+karseny99@karseny99:~/Desktop/lab2/diff_test$ cd ..
+karseny99@karseny99:~/Desktop/lab2$ rm diff_test -r
+karseny99@karseny99:~/Desktop/lab2$ ls
+
+karseny99@karseny99:~/Desktop/lab2$ pwd >path.txt
+karseny99@karseny99:~/Desktop/lab2$ cat path.txt 
+/home/karseny99/Desktop/lab2
+
+karseny99@karseny99:~/Desktop/lab2$ mkdir mv_dir
+karseny99@karseny99:~/Desktop/lab2$ touch f{1..10}
+karseny99@karseny99:~/Desktop/lab2$ mv f? ~/Desktop/./../Desktop/lab2/mv_dir - эквивалентно в относительном пути записи /mv_dir или для абсолютного - 1) /home/karseny99/Desktop/lab2/mv_dir
+                                                                                                                                                      2) ~/Deesktop/lab2/mv_dir
+                                                                                                                                                      
+                                                                                                                                                      
+karseny99@karseny99:~/Desktop/lab2$ touch text.txt
+karseny99@karseny99:~/Desktop/lab2$ nano text.txt 
+karseny99@karseny99:~/Desktop/lab2$ cat text.txt 
+qq
+qq
+qq
+qq
+dsadsadsa
+dsadsadsa
+
+karseny99@karseny99:~/Desktop/lab2$ cat >> text.txt (Дозапись)
+privet
+^Z
+[1]+  Stopped                 cat >> text.txt
+karseny99@karseny99:~/Desktop/lab2$ cat text.txt
+qq
+qq
+qq
+qq
+dsadsadsa
+dsadsadsa
+
+privet
+karseny99@karseny99:~/Desktop/lab2$ cat > text.txt  (Перезапись)
+poka
+^Z
+[2]+  Stopped                 cat > text.txt
+karseny99@karseny99:~/Desktop/lab2$ cat text.txt 
+poka
+
+karseny99@karseny99:~/Desktop/lab2$ touch cp_file.txt
+karseny99@karseny99:~/Desktop/lab2$ cp cp_file.txt new_cp_file.txt
+karseny99@karseny99:~/Desktop/lab2$ ls | grep "cp"
+cp_file.txt
+new_cp_file.txt
+karseny99@karseny99:~/Desktop$ cp -r lab2/ cp_lab2/
+karseny99@karseny99:~/Desktop$ ls | grep "cp"
+cp_lab2
+
+
+###########################################################################################
+
+
+Второй пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop/lab2$ ls
+cp_file.txt  f10  f3  f5  f7  f9      new_cp_file.txt  text.txt
+f1           f2   f4  f6  f8  mv_dir  path.txt
+karseny99@karseny99:~/Desktop/lab2$ rm f? && ls > files.txt
+karseny99@karseny99:~/Desktop/lab2$ cat files.txt 
+cp_file.txt
+f10
+files.txt
+mv_dir
+new_cp_file.txt
+path.txt
+text.txt
+
+karseny99@karseny99:~/Desktop/lab2$ echo $?
+0
+karseny99@karseny99:~/Desktop/lab2$ cd fffffffffffffffff
+bash: cd: fffffffffffffffff: No such file or directory
+karseny99@karseny99:~/Desktop/lab2$ echo $?
+1
+
+karseny99@karseny99:~/Desktop/lab2$ ping -c2 ya.ru && echo "Succesful" || echo "there are some errors"
+PING ya.ru (87.250.250.242) 56(84) bytes of data.
+64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=246 time=11.0 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=2 ttl=246 time=12.1 ms
+
+--- ya.ru ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 11.011/11.576/12.141/0.565 ms
+Succesful
+
+////////////////////////////////////////
+
+(Если отключить от сети)
+
+karseny99@karseny99:~/Desktop/lab2$ ping -c2 ya.ru && echo "Succesful" || echo "there are some errors"
+ping: ya.ru: Temporary failure in name resolution
+there are some errors
+
+
+###########################################################################################
+
+
+Третий пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop$ bc <<< "4*4" 
+16
+karseny99@karseny99:~/Desktop$ bc << EOF
+11 + 22
+6 +5
+EOF
+33
+11
+
+karseny99@karseny99:~/Desktop$ cd lab2/
+karseny99@karseny99:~/Desktop/lab2$ ls
+cp_file.txt  f10  files.txt  mv_dir  new_cp_file.txt  path.txt  text.txt
+
+karseny99@karseny99:~/Desktop/lab2$ ping -c3 google.com > data_ping
+karseny99@karseny99:~/Desktop/lab2$ cat data_ping 
+PING google.com (74.125.131.113) 56(84) bytes of data.
+64 bytes from lu-in-f113.1e100.net (74.125.131.113): icmp_seq=1 ttl=58 time=19.6 ms
+64 bytes from lu-in-f113.1e100.net (74.125.131.113): icmp_seq=2 ttl=58 time=19.2 ms
+64 bytes from lu-in-f113.1e100.net (74.125.131.113): icmp_seq=3 ttl=58 time=19.7 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 19.238/19.517/19.679/0.198 ms
+karseny99@karseny99:~/Desktop/lab2$ ping -c2 ya.ru 2> data_ping 
+karseny99@karseny99:~/Desktop/lab2$ cat data_ping 
+ping: ya.ru: Temporary failure in name resolution
+(С полной перезаписью файла записываем только ошибки в файл)
+
+
+karseny99@karseny99:~/Desktop/lab2$ cat < file1 | bc
+25
+karseny99@karseny99:~/Desktop/lab2/move_dir$ cat > file.txt
+privet   
+
+Стандартный ввод перенаправляется в файл
+
+karseny99@karseny99:~/Desktop/lab2/move_dir$ cat file.txt
+privet
+
+Команде cat передается аргументом путь к файлу
+
+karseny99@karseny99:~/Desktop/lab2/move_dir$ cat < file.txt
+privet
+
+Сat считает, что читает пользовательский ввод, то есть содержимое файла идет на вход стандартному вводу
+
+
+###########################################################################################
+
+
+Четвертый пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop/lab2$ ping -c10 google.com |grep "20" |gzip -c | gzip -d > data.txt 
+karseny99@karseny99:~/Desktop/lab2$ cat data.txt
+64 bytes from lu-in-f101.1e100.net (74.125.131.101): icmp_seq=6 ttl=58 time=20.8 ms
+64 bytes from lu-in-f101.1e100.net (74.125.131.101): icmp_seq=10 ttl=58 time=20.7 ms
+rtt min/avg/max/mdev = 20.666/21.554/24.395/1.035 ms
+
+
+###########################################################################################
+
+
+Пятый пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop/lab2$ ls
+cp_file.txt  data.txt  file1      mv_dir           path.txt
+data_ping    f10       files.txt  new_cp_file.txt  text.txt
+karseny99@karseny99:~/Desktop/lab2$ touch f{1..4}
+karseny99@karseny99:~/Desktop/lab2$ mkdir move_dir
+karseny99@karseny99:~/Desktop/lab2$ mv f? move_dir/
+karseny99@karseny99:~/Desktop/lab2$ cd move_dir/
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls
+f1  f2  f3  f4
+karseny99@karseny99:~/Desktop/lab2/move_dir$ rm *
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls
+
+karseny99@karseny99:~/Desktop/lab2$ ls
+cp_file.txt  data.txt  file1      move_dir  new_cp_file.txt  text.txt
+data_ping    f10       files.txt  mv_dir    path.txt
+karseny99@karseny99:~/Desktop/lab2$ touch cfd{1..20}
+karseny99@karseny99:~/Desktop/lab2$ rm cfd*
+karseny99@karseny99:~/Desktop/lab2$ ls
+cp_file.txt  data.txt  file1      move_dir  new_cp_file.txt  text.txt
+data_ping    f10       files.txt  mv_dir    path.txt
+
+karseny99@karseny99:~/Desktop/lab2$ cd move_dir/
+karseny99@karseny99:~/Desktop/lab2/move_dir$ touch dir{1..9}
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls dir[1-9]
+dir1  dir2  dir3  dir4  dir5  dir6  dir7  dir8  dir9
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls dir[12tyu]
+dir1  dir2
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls dir[gfd]
+ls: cannot access 'dir[gfd]': No such file or directory
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls di[ra]?
+dir1  dir2  dir3  dir4  dir5  dir6  dir7  dir8  dir9
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls dir{1..3}
+dir1  dir2  dir3
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls
+dir1  dir2  dir3  dir4  dir5  dir6  dir7  dir8  dir9  f1  f2  f3  f4  file.txt
+karseny99@karseny99:~/Desktop/lab2/move_dir$ rm dir?
+karseny99@karseny99:~/Desktop/lab2/move_dir$ rmdir f?
+karseny99@karseny99:~/Desktop/lab2/move_dir$ ls
+file.txt
+
+
+###########################################################################################
+
+
+Шестой пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop/lab2$ mkdir test_dir
+karseny99@karseny99:~/Desktop/lab2$ cd test_dir/
+karseny99@karseny99:~/Desktop/lab2/test_dir$ touch example{0..7}
+karseny99@karseny99:~/Desktop/lab2/test_dir$ ls
+example0  example1  example2  example3  example4  example5  example6  example7
+karseny99@karseny99:~/Desktop/lab2/test_dir$ ls -l
+total 0
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example0
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example1
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example2
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example3
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example4
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example5
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example6
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example7
+karseny99@karseny99:~/Desktop/lab2/test_dir$ chmod u+x example0
+karseny99@karseny99:~/Desktop/lab2/test_dir$ chmod u-r+x example1
+karseny99@karseny99:~/Desktop/lab2/test_dir$ chmod o-w+x example2
+karseny99@karseny99:~/Desktop/lab2/test_dir$ ls -l
+total 0
+-rwxrw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example0
+--wxrw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example1
+-rw-rw-r-x 1 karseny99 karseny99 0 сен 20 22:19 example2
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example3
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example4
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example5
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example6
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example7
+usr grp othr   user         group              
+
+karseny99@karseny99:~/Desktop/lab2/test_dir$ chmod 777 example3
+karseny99@karseny99:~/Desktop/lab2/test_dir$ chmod 500 example4 
+karseny99@karseny99:~/Desktop/lab2/test_dir$ ls -l
+total 0
+-rwxrw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example0
+--wxrw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example1
+-rw-rw-r-x 1 karseny99 karseny99 0 сен 20 22:19 example2
+-rwxrwxrwx 1 karseny99 karseny99 0 сен 20 22:19 example3
+-r-x------ 1 karseny99 karseny99 0 сен 20 22:19 example4
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example5
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example6
+-rw-rw-r-- 1 karseny99 karseny99 0 сен 20 22:19 example7
+
+karseny99@karseny99:~/Desktop/lab2/test_dir$ mkdir k
+karseny99@karseny99:~/Desktop/lab2/test_dir$ chmod -x k
+karseny99@karseny99:~/Desktop/lab2/test_dir$ cd k
+bash: cd: k: Permission denied
+
+
+###########################################################################################
+
+
+Седьмой пункт
+
+
+###########################################################################################
+
+
+karseny99@karseny99:~/Desktop/lab2$ bc <<< "2+2" > ans.txt &
+[2] 3843
+karseny99@karseny99:~/Desktop/lab2$ cat ans.txt 
+4
+[2]-  Done                    bc <<< "2+2" > ans.txt
+
+
+karseny99@karseny99:~/Desktop/lab2$ ping twitter.com > ping &
+[2] 3866
+karseny99@karseny99:~/Desktop/lab2$ ps
+    PID TTY          TIME CMD
+   3360 pts/0    00:00:00 bash
+   3471 pts/0    00:00:00 cat
+   3866 pts/0    00:00:00 ping
+   3867 pts/0    00:00:00 ps
+karseny99@karseny99:~/Desktop/lab2$ jobs
+[1]-  Running                 ping twitter.com > ping &
+karseny99@karseny99:~/Desktop/lab2$ kill 3866
+karseny99@karseny99:~/Desktop/lab2$ jobs
+[1]-  Terminated              ping twitter.com
+karseny99@karseny99:~/Desktop/lab2$ ps
+    PID TTY          TIME CMD
+   3360 pts/0    00:00:00 bash
+   3471 pts/0    00:00:00 cat
+   3868 pts/0    00:00:00 ps
+
+
+karseny99@karseny99:~/Desktop/lab2$ gedit &
+[3] 3887
+karseny99@karseny99:~/Desktop/lab2$ disown 3887   (для работы в фоне, независимо от открытия/закрытия терминала)
+karseny99@karseny99:~/Desktop/lab2$ jobs
+karseny99@karseny99:~/Desktop/lab2$ ps
+    PID TTY          TIME CMD
+   3360 pts/0    00:00:00 bash
+   3471 pts/0    00:00:00 cat
+   3879 pts/0    00:00:00 top
+   3896 pts/0    00:00:00 ps
+
+###########################################################################################
+
+karseny99@karseny99:~/Desktop$ exit
+
+
+

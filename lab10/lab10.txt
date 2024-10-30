@@ -1,0 +1,634 @@
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall rec1.c 
+karseny99@karseny99-pc:~/Рабочий стол$ ./a.out
+6
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall -g rec1.c 
+karseny99@karseny99-pc:~/Рабочий стол$ gdb ./a.out
+GNU gdb (Ubuntu 9.2-0ubuntu1~20.04.1) 9.2
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./a.out...
+(gdb) list
+1	#include <stdio.h>
+2	
+3	
+4	
+5	int fact(int n) {
+6		if (n == 1 || n == 0) {
+7			return 1;
+8		}
+
+
+10	}
+(gdb) list
+11	
+12	int main() {
+13		int n = 3;
+14		printf("%d\n", fact(n));
+15		printf("Programm's end!\n");
+16	}
+	
+
+
+====================================================================
+
+
+
+(gdb) break 14
+Breakpoint 1 at 0x11b1: file rec1.c, line 14.
+(gdb) break 15
+Breakpoint 2 at 0x11ce: file rec1.c, line 15.
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 1, main () at rec1.c:14
+14		printf("%d\n", fact(n));
+(gdb) step
+fact (n=21845) at rec1.c:5
+5	int fact(int n) {
+(gdb) step
+6		if (n == 1 || n == 0) {
+(gdb) step
+9		return n * fact(n-1);
+(gdb) continue
+Continuing.
+6
+
+Breakpoint 2, main () at rec1.c:15
+15		printf("Programm's end!\n");
+(gdb) continue
+Continuing.
+Programm's end!
+[Inferior 1 (process 2483) exited normally]
+
+
+
+====================================================================
+
+
+
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 1, main () at rec1.c:14
+14		printf("%d\n", fact(n));
+(gdb) next
+6
+
+Breakpoint 2, main () at rec1.c:15
+15		printf("Programm's end!\n");
+(gdb) continue
+Continuing.
+Programm's end!
+[Inferior 1 (process 2500) exited normally]
+
+
+
+====================================================================
+
+
+
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 1, main () at rec1.c:14
+14		printf("%d\n", fact(n));
+
+(gdb) set var n = 5
+
+(gdb) print n
+$2 = 5
+
+(gdb) ptype n
+type = int
+
+(gdb) continue
+Continuing.
+120
+Breakpoint 2, main () at rec1.c:15
+15		printf("Programm's end!\n");
+
+
+
+======================================================================
+
+(gdb) b 6
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 1, main () at rec1.c:14
+14		printf("%d\n", fact(n));
+(gdb) continue
+Continuing.
+
+reakpoint 3, fact (n=3) at rec1.c:6
+6		if (n == 1 || n == 0) {
+(gdb) continue
+Continuing.
+
+Breakpoint 3, fact (n=2) at rec1.c:6
+6		if (n == 1 || n == 0) {
+(gdb) continue
+Continuing.
+
+Breakpoint 3, fact (n=1) at rec1.c:6
+6		if (n == 1 || n == 0) {
+
+
+(gdb) bt
+#0  fact (n=1) at rec1.c:6
+#1  0x0000555555555198 in fact (n=2) at rec1.c:9
+#2  0x0000555555555198 in fact (n=3) at rec1.c:9
+#3  0x00005555555551bb in main () at rec1.c:14
+
+
+
+====================================================================
+
+
+# bt (косвенная)
+
+(gdb) list
+4	int bif(int n);
+5	
+6	int fact(int n) {
+7		if (n == 1 || n == 0) {
+8			return 1;
+9		}
+10		return n * fact(n-1);
+11	}
+12	
+13	
+(gdb) list
+14	
+15	
+16	
+17	
+18	int main() {
+19		//int n = 3;
+20		printf("%d\n", fib(5));
+21		printf("Programm's end!\n");
+22	}
+23	
+(gdb) list
+24	int bif(int n) {
+25		if(n == 1 || n == 0) {
+26			return 1;
+27		}
+28		return fib(n - 1) + fib(n-2);
+29	}
+30	
+31	int fib(int n) {
+32		if(n == 1|| n== 0) {
+33			return 1;
+(gdb) list
+34		}
+35		return bif(n-1) + bif(n - 2);
+36	}
+37	
+
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 3, main () at rec1.c:20
+20		printf("%d\n", fib(5));
+(gdb) step
+fib (n=21845) at rec1.c:31
+31	int fib(int n) {
+(gdb) bt
+#0  fib (n=21845) at rec1.c:31
+#1  0x00005555555551b0 in main () at rec1.c:20
+
+(gdb) continue
+Continuing.
+
+Breakpoint 1, bif (n=4) at rec1.c:25
+25		if(n == 1 || n == 0) {
+(gdb) bt
+#0  bif (n=4) at rec1.c:25
+#1  0x000055555555524e in fib (n=5) at rec1.c:35
+#2  0x00005555555551b0 in main () at rec1.c:20
+
+
+(gdb) continue
+Continuing.
+
+Breakpoint 2, fib (n=3) at rec1.c:32
+32		if(n == 1|| n== 0) {
+(gdb) continue
+Continuing.
+
+Breakpoint 1, bif (n=2) at rec1.c:25
+25		if(n == 1 || n == 0) {
+(gdb) continue
+Continuing.
+
+Breakpoint 2, fib (n=1) at rec1.c:32
+32		if(n == 1|| n== 0) {
+(gdb) continue
+Continuing.
+
+Breakpoint 2, fib (n=0) at rec1.c:32
+32		if(n == 1|| n== 0) {
+(gdb) bt
+#0  fib (n=0) at rec1.c:32
+#1  0x0000555555555215 in bif (n=2) at rec1.c:28
+#2  0x000055555555524e in fib (n=3) at rec1.c:35
+#3  0x0000555555555206 in bif (n=4) at rec1.c:28
+#4  0x000055555555524e in fib (n=5) at rec1.c:35
+#5  0x00005555555551b0 in main () at rec1.c:20
+(gdb) 
+Breakpoint 1, bif (n=1) at rec1.c:25
+25		if(n == 1 || n == 0) {
+(gdb) bt
+#0  bif (n=1) at rec1.c:25
+#1  0x000055555555525d in fib (n=3) at rec1.c:35
+#2  0x0000555555555206 in bif (n=4) at rec1.c:28
+#3  0x000055555555524e in fib (n=5) at rec1.c:35
+#4  0x00005555555551b0 in main () at rec1.c:20
+
+
+(gdb) continue
+Continuing.
+
+Breakpoint 2, fib (n=2) at rec1.c:32
+32		if(n == 1|| n== 0) {
+(gdb) bt
+#0  fib (n=2) at rec1.c:32
+#1  0x0000555555555215 in bif (n=4) at rec1.c:28
+#2  0x000055555555524e in fib (n=5) at rec1.c:35
+#3  0x00005555555551b0 in main () at rec1.c:20
+
+
+(gdb) continue
+Continuing.
+
+Breakpoint 1, bif (n=1) at rec1.c:25
+25		if(n == 1 || n == 0) {
+(gdb) bt
+#0  bif (n=1) at rec1.c:25
+#1  0x000055555555524e in fib (n=2) at rec1.c:35
+#2  0x0000555555555215 in bif (n=4) at rec1.c:28
+#3  0x000055555555524e in fib (n=5) at rec1.c:35
+#4  0x00005555555551b0 in main () at rec1.c:20
+
+
+(gdb) continue
+Continuing.
+
+Breakpoint 1, bif (n=0) at rec1.c:25
+25		if(n == 1 || n == 0) {
+(gdb) bt
+#0  bif (n=0) at rec1.c:25
+#1  0x000055555555525d in fib (n=2) at rec1.c:35
+#2  0x0000555555555215 in bif (n=4) at rec1.c:28
+#3  0x000055555555524e in fib (n=5) at rec1.c:35
+#4  0x00005555555551b0 in main () at rec1.c:20
+(gdb) continue
+Continuing.
+
+Breakpoint 1, bif (n=3) at rec1.c:25
+25		if(n == 1 || n == 0) {
+(gdb) bt
+#0  bif (n=3) at rec1.c:25
+#1  0x000055555555525d in fib (n=5) at rec1.c:35
+#2  0x00005555555551b0 in main () at rec1.c:20
+
+
+
+(gdb) continue
+Continuing.
+
+Breakpoint 2, fib (n=2) at rec1.c:32
+32		if(n == 1|| n== 0) {
+(gdb) bt
+#0  fib (n=2) at rec1.c:32
+#1  0x0000555555555206 in bif (n=3) at rec1.c:28
+#2  0x000055555555525d in fib (n=5) at rec1.c:35
+#3  0x00005555555551b0 in main () at rec1.c:20
+
+
+(gdb) continue 
+
+.......
+
+(gdb) continue 
+
+Breakpoint 4, main () at rec1.c:21
+21		printf("Programm's end!\n");
+(gdb) bt
+#0  main () at rec1.c:21
+
+ 
+ 
+ ====================================================================
+ 
+ 
+ #bt (бесконечная)
+ 
+ 
+  
+13	int inf() {
+14		return inf();
+15	}
+16	
+(gdb) list
+17	
+18	
+19	
+20	
+21	int main() {
+22		//int n = 3;
+23		printf("%d\n", inf());
+24		printf("Programm's end!\n");
+25	}
+
+(gdb) b 23
+Breakpoint 1 at 0x11ba: file rec1.c, line 23.
+(gdb) b 14
+Breakpoint 2 at 0x11a6: file rec1.c, line 14.
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 1, main () at rec1.c:23
+23		printf("%d\n", inf());
+(gdb) step
+inf () at rec1.c:13
+13	int inf() {
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) continue
+Continuing.
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) continue
+Continuing.
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) continue
+Continuing.
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) bt
+#0  inf () at rec1.c:14
+#1  0x00005555555551b0 in inf () at rec1.c:14
+#2  0x00005555555551b0 in inf () at rec1.c:14
+#3  0x00005555555551b0 in inf () at rec1.c:14
+#4  0x00005555555551b0 in inf () at rec1.c:14
+#5  0x00005555555551b0 in inf () at rec1.c:14
+#6  0x00005555555551b0 in inf () at rec1.c:14
+#7  0x00005555555551b0 in inf () at rec1.c:14
+#8  0x00005555555551b0 in inf () at rec1.c:14
+#9  0x00005555555551b0 in inf () at rec1.c:14
+#10 0x00005555555551b0 in inf () at rec1.c:14
+#11 0x00005555555551c4 in main () at rec1.c:23
+(gdb) continue
+Continuing.
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) bt
+#0  inf () at rec1.c:14
+#1  0x00005555555551b0 in inf () at rec1.c:14
+#2  0x00005555555551b0 in inf () at rec1.c:14
+#3  0x00005555555551b0 in inf () at rec1.c:14
+#4  0x00005555555551b0 in inf () at rec1.c:14
+#5  0x00005555555551b0 in inf () at rec1.c:14
+#6  0x00005555555551b0 in inf () at rec1.c:14
+#7  0x00005555555551b0 in inf () at rec1.c:14
+#8  0x00005555555551b0 in inf () at rec1.c:14
+#9  0x00005555555551b0 in inf () at rec1.c:14
+#10 0x00005555555551b0 in inf () at rec1.c:14
+#11 0x00005555555551b0 in inf () at rec1.c:14
+#12 0x00005555555551c4 in main () at rec1.c:23
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) next
+
+Breakpoint 2, inf () at rec1.c:14
+14		return inf();
+(gdb) bt
+#0  inf () at rec1.c:14
+#1  0x00005555555551b0 in inf () at rec1.c:14
+#2  0x00005555555551b0 in inf () at rec1.c:14
+#3  0x00005555555551b0 in inf () at rec1.c:14
+#4  0x00005555555551b0 in inf () at rec1.c:14
+#5  0x00005555555551b0 in inf () at rec1.c:14
+#6  0x00005555555551b0 in inf () at rec1.c:14
+#7  0x00005555555551b0 in inf () at rec1.c:14
+#8  0x00005555555551b0 in inf () at rec1.c:14
+#9  0x00005555555551b0 in inf () at rec1.c:14
+#10 0x00005555555551b0 in inf () at rec1.c:14
+#11 0x00005555555551b0 in inf () at rec1.c:14
+#12 0x00005555555551b0 in inf () at rec1.c:14
+#13 0x00005555555551b0 in inf () at rec1.c:14
+#14 0x00005555555551b0 in inf () at rec1.c:14
+#15 0x00005555555551b0 in inf () at rec1.c:14
+#16 0x00005555555551b0 in inf () at rec1.c:14
+#17 0x00005555555551b0 in inf () at rec1.c:14
+#18 0x00005555555551c4 in main () at rec1.c:23
+	
+
+
+(gdb) next
+<....>
+(gdb) bt
+#0  inf () at rec1.c:14
+#1  0x00005555555551b0 in inf () at rec1.c:14
+#2  0x00005555555551b0 in inf () at rec1.c:14
+#3  0x00005555555551b0 in inf () at rec1.c:14
+#4  0x00005555555551b0 in inf () at rec1.c:14
+#5  0x00005555555551b0 in inf () at rec1.c:14
+#6  0x00005555555551b0 in inf () at rec1.c:14
+#7  0x00005555555551b0 in inf () at rec1.c:14
+#8  0x00005555555551b0 in inf () at rec1.c:14
+#9  0x00005555555551b0 in inf () at rec1.c:14
+#10 0x00005555555551b0 in inf () at rec1.c:14
+#11 0x00005555555551b0 in inf () at rec1.c:14
+#12 0x00005555555551b0 in inf () at rec1.c:14
+#13 0x00005555555551b0 in inf () at rec1.c:14
+#14 0x00005555555551b0 in inf () at rec1.c:14
+#15 0x00005555555551b0 in inf () at rec1.c:14
+#16 0x00005555555551b0 in inf () at rec1.c:14
+#17 0x00005555555551b0 in inf () at rec1.c:14
+#18 0x00005555555551b0 in inf () at rec1.c:14
+#19 0x00005555555551b0 in inf () at rec1.c:14
+#20 0x00005555555551b0 in inf () at rec1.c:14
+#21 0x00005555555551b0 in inf () at rec1.c:14
+#22 0x00005555555551b0 in inf () at rec1.c:14
+#23 0x00005555555551b0 in inf () at rec1.c:14
+#24 0x00005555555551b0 in inf () at rec1.c:14
+
+ 
+ (gdb) info b
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x00005555555551ba in main at rec1.c:23
+	breakpoint already hit 1 time
+2       breakpoint     keep y   0x00005555555551a6 in inf at rec1.c:14
+	breakpoint already hit 42 times
+
+
+ 
+ 
+ =====================================Display|Undisplay===================================
+ 
+ 
+ 
+
+(gdb) run
+Starting program: /home/karseny99/Рабочий стол/a.out 
+
+Breakpoint 3, main () at rec1.c:20
+20		printf("%d\n", fib(5));
+(gdb) display n
+No symbol "n" in current context.
+(gdb) step
+fib (n=21845) at rec1.c:31
+31	int fib(int n) {
+(gdb) display n
+1: n = 21845
+(gdb) continue
+Continuing.
+
+Breakpoint 2, fib (n=5) at rec1.c:32
+32		if(n == 1|| n== 0) {
+1: n = 5
+
+(gdb) undisplay n
+(gdb) continue
+Continuing.
+
+Breakpoint 1, bif (n=4) at rec1.c:25
+25		if(n == 1 || n == 0) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

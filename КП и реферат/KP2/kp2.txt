@@ -1,0 +1,32 @@
+https://aws.amazon.com/ru/what-is/computer-networking/
+https://habr.com/ru/post/307252/
+https://www.kipis.ru/info/index.php?ELEMENT_ID=42901 - МАС адрес
+https://www.oslogic.ru/knowledge/809/setevoj-uroven-modeli-osi-obshhie-ponyatiya/ - сетевой уровень
+https://habr.com/ru/company/Voximplant/blog/430436/ - quic
+http://celnet.ru/OSI5.php - сеансовый уровень
+http://celnet.ru/OSI6.php - представительский уровень
+http://celnet.ru/OSI7.php - прикладной
+https://shpakov.dev/blog/all-you-need-to-know-about-dns/ - dns
+https://selectel.ru/blog/dhcp-protocol/ DHCP протокол
+https://www.smart-soft.ru/blog/tehnologija_preobrazovanija_setevyh_adresov_nat/ - NAT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

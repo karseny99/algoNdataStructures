@@ -1,0 +1,130 @@
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall h.c
+karseny99@karseny99-pc:~/Рабочий стол$ ./a.out 
+43
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -E h.c -o h.ii          -препроцессор
+
+<==>
+
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -S h.c     -компилятор си -> ассемблерный код
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -c h.c     -ассемблер, объектный файл
+
+=================== Этап препроцессора ========================
+
+ // file_name: hprep.cпсс 
+
+
+
+karseny99@karseny99-pc:~/Рабочий стол$ cp h.c hprep.c
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall hprep.c
+hprep.c:3:10: fatal error: limon: Нет такого файла или каталога
+    3 | #include <limon>
+      |          ^~~~~~~
+compilation terminated.
+
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall hprep.c
+hprep.c:4:2: error: invalid preprocessing directive #including; did you mean #include?
+    4 | #including <math.h>
+      |  ^~~~~~~~~
+      |  include
+      
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall hprep.c
+hprep.c:5:10: fatal error: my.h: Нет такого файла или каталога
+    5 | #include "my.h"
+      |          ^~~~~~
+compilation terminated.
+
+
+================== Этап компиляции(->в ассемблерный код) ======================
+
+ // file_name: hcomp1.c
+ 
+ 
+ 
+ // Не существующий тип данных
+ 
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall hcomp1.c
+hcomp1.c: In function ‘main’:
+hcomp1.c:6:2: error: unknown type name ‘myuint’
+    6 |  myuint g = 1;
+      |  ^~~~~~
+
+
+
+ // Не объявленная переменная 
+ 
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall hcomp1.c
+hcomp1.c: In function ‘main’:
+hcomp1.c:7:2: error: ‘g’ undeclared (first use in this function)
+    7 |  g ++;
+      |  ^
+
+
+====================== Ассемблер (в объектный файл) ======================
+
+ // file_name: hcomp2.c
+ 
+ 
+ 
+karseny99@karseny99-pc:~/Рабочий стол$ gcc -std=c99 -pedantic -Wall hcomp2.c
+/tmp/ccyPYwH9.s: Сообщения ассемблера:
+/tmp/ccyPYwH9.s:4: Ошибка: такая инструкция не существует: «error»
+
+
+
+
+====================== Этап линковки ======================
+
+ // file_name: hlink.c
+
+
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc hlink.c
+/usr/bin/ld: /tmp/cctjYhib.o: в функции «main»:
+hlink.c:(.text+0x38): неопределённая ссылка на «f»
+collect2: error: ld returned 1 exit status
+ 
+ 
+ karseny99@karseny99-pc:~/Рабочий стол$ gcc -c hlink.c hlink1.c
+karseny99@karseny99-pc:~/Рабочий стол$ gcc hlink.o hlink1.o -o first
+/usr/bin/ld: hlink1.o: в функции «f»:
+hlink1.c:(.text+0x0): повторное определение «f»; hlink.o:hlink.c:(.text+0x0): здесь первое определение
+collect2: error: ld returned 1 exit status
+
+ 
+===========================================================
+
+
+
+
+====================== Runtime ======================
+
+// file_name: hrun.c
+
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc hrun.c    (Деление на ноль)
+karseny99@karseny99-pc:~/Рабочий стол$ ./a.out 
+0
+Исключение в операции с плавающей точкой (стек памяти сброшен на диск)
+
+
+
+
+karseny99@karseny99-pc:~/Рабочий стол$ gcc hrun.c       (обращение к несуществующему элементу массива)
+karseny99@karseny99-pc:~/Рабочий стол$ ./a.out
+Ошибка сегментирования (стек памяти сброшен на диск)
+
+
+
+
+
+
+
+
+
+
+
